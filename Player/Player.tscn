@@ -1,6 +1,8 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
+[ext_resource path="res://Player/blasterJ.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/skaterFemaleA.png" type="Texture" id=2]
+[ext_resource path="res://Player/Player.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.5
@@ -4646,9 +4648,10 @@ nodes/output/position = Vector2( 760, 150 )
 node_connections = [ "output", 0, "Idle_Run", "Idle_Run", 0, "Idle", "Idle_Run", 1, "Run" ]
 
 [node name="Player" type="KinematicBody"]
+script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.92101, 0.21824 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.010784, 1.82579, 0.273704 )
 shape = SubResource( 1 )
 
 [node name="Root" type="Spatial" parent="."]
@@ -4788,7 +4791,7 @@ bones/26/name = "left_hand_thumb_1"
 bones/26/parent = 22
 bones/26/rest = Transform( -0.253335, -0.710613, 0.656393, 0.157935, 0.639042, 0.752783, -0.954399, 0.294373, -0.0496612, -0.0651485, 0.050981, 0.00244572 )
 bones/26/enabled = true
-bones/26/bound_children = [  ]
+bones/26/bound_children = [ NodePath("BoneAttachment") ]
 bones/27/name = "left_hand_thumb_2"
 bones/27/parent = 26
 bones/27/rest = Transform( 0.911999, -0.335451, 0.236071, 0.200071, -0.138638, -0.969923, 0.35809, 0.9318, -0.0593238, 7.45176e-08, 0.105868, -4.56016e-09 )
@@ -4885,6 +4888,13 @@ mesh = SubResource( 2 )
 skin = SubResource( 3 )
 material/0 = SubResource( 4 )
 
+[node name="BoneAttachment" type="BoneAttachment" parent="Root/Skeleton"]
+transform = Transform( 0.951428, -0.215253, 0.220141, 0.0899885, -0.489367, -0.867424, 0.294445, 0.845095, -0.446227, 0.577048, 1.30247, 0.281352 )
+bone_name = "left_hand_thumb_1"
+
+[node name="blasterJ" parent="Root/Skeleton/BoneAttachment" instance=ExtResource( 1 )]
+transform = Transform( 1.25843, 0.810918, 0.0935274, -0.648302, 0.888452, 1.01998, 0.496023, -0.896141, 1.09585, 0.181814, 0.380115, 0.463161 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 5 )
 anims/Crouch = SubResource( 6 )
@@ -4904,5 +4914,4 @@ anims/Walk = SubResource( 18 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 22 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/Idle_Run/blend_amount = 0.0
